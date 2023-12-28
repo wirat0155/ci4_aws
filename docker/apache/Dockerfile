@@ -1,4 +1,5 @@
 FROM php:7.4-apache
+
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 RUN apt-get update
 RUN apt-get install -y \
@@ -49,4 +50,8 @@ RUN useradd -G www-data,root -u $uid -d /home/devuser devuser
 RUN mkdir -p /home/devuser/.composer && \
     chown -R devuser:devuser /home/devuser
 
+RUN a2enmod rewrite
+RUN a2enmod ssl
+
 EXPOSE 80
+EXPOSE 443
